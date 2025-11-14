@@ -1,13 +1,22 @@
-adafruit-circuitpython-dht
-spidev
-gpiozero
-RPi.GPIO
-paho-mqtt
-numpy
+# Core ML + Data Handling
 pandas
+numpy
 scikit-learn
 joblib
-matplotlib
-tqdm
-schedule
-openai
+
+# Logging is built into Python (no package needed)
+
+# Sensor libraries (for Raspberry Pi)
+adafruit-circuitpython-dht
+gpiozero
+spidev
+
+# Transformers (optimized for CPU)
+transformers==4.37.0
+safetensors
+
+# Torch (CPU version for Raspberry Pi 5)
+torch --index-url https://download.pytorch.org/whl/cpu
+
+# HTTP requests (optional for updates)
+requests
