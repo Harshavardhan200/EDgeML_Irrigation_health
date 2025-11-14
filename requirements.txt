@@ -1,0 +1,13 @@
+adafruit-circuitpython-dht
+spidev
+gpiozero
+RPi.GPIO
+paho-mqtt
+numpy
+pandas
+scikit-learn
+joblib
+matplotlib
+tqdm
+schedule
+openai
