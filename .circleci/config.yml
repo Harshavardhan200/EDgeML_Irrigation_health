@@ -32,10 +32,11 @@ workflows:
   nightly_training:
     triggers:
       - schedule:
-          cron: "0 0 * * *"   # Midnight UTC ONLY
-    jobs:
-      - retrain:
+          cron: "0 0 * * *"
           filters:
             branches:
               only:
                 - main
+
+    jobs:
+      - retrain
