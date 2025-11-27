@@ -4,20 +4,18 @@ numpy
 scikit-learn
 joblib
 
-# Logging is built into Python (no package needed)
-
-# Sensor libraries (for Raspberry Pi)
+# Raspberry Pi sensor libraries
 adafruit-circuitpython-dht
 gpiozero
 spidev
 
-# Transformers (optimized for CPU)
+# Transformers + safetensors (disabled on Pi if not needed)
 transformers==4.37.0
 safetensors
 
-# Torch (CPU version for Raspberry Pi 5)
+# CPU PyTorch for Raspberry Pi 5
 torch --index-url https://download.pytorch.org/whl/cpu
 
-# HTTP requests (optional for updates)
-requests
+# Utility libs
 python-dotenv
+requests
