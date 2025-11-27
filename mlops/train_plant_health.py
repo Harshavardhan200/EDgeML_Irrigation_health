@@ -23,3 +23,6 @@ def train_plant_health():
     git_commit_and_push("Updated plant health model")
 
     print("✔ PLANT HEALTH retraining complete.")
+    acc = model.train()
+    return acc
+

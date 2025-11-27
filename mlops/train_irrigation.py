@@ -30,3 +30,5 @@ def train_irrigation():
     git_commit_and_push("Updated irrigation model")
 
     print("✔ IRRIGATION retraining complete.")
+    acc = model.train()
+    return acc
