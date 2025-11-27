@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score, classification_report
 
 
 # -------------------------------------
-# LOGGING (Shown in Thonny)
+# LOGGING
 # -------------------------------------
 logging.basicConfig(
     level=logging.INFO,
@@ -19,21 +19,35 @@ logging.basicConfig(
 
 class PlantHealthModel:
 
-    def __init__(self, dataset="plant_health_data.csv", model_file="plant_health_svm.pkl"):
-        self.dataset = dataset
-        self.model_file = model_file
+    def __init__(self,
+                 dataset="data/plant_health_data.csv",
+                 model_file="models/plant_health/plant_health_svm.pkl"):
+
+        # Determine project root (one level above src/)
+        BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+        # Build absolute paths
+        self.dataset = os.path.join(BASE_DIR, dataset)
+        self.model_file = os.path.join(BASE_DIR, model_file)
+
+        self.scaler_file = os.path.join(BASE_DIR, "models/plant_health/plant_health_scaler.pkl")
+        self.encoder_file = os.path.join(BASE_DIR, "models/plant_health/plant_health_encoder.pkl")
+
+        # Create model directory if missing
+        os.makedirs(os.path.join(BASE_DIR, "models/plant_health"), exist_ok=True)
+
         self.model = None
         self.scaler = StandardScaler()
-        self.label_encoder = LabelEncoder()   # For Plant_Health_Status
+        self.label_encoder = LabelEncoder()
 
-        logging.info("PlantHealthModel initialized.")
+        logging.info(f"PlantHealthModel initialized with dataset: {self.dataset}")
 
     # ------------------------------------------------
     def load_dataset(self):
         """Load dataset and clean unnecessary columns."""
         df = pd.read_csv(self.dataset)
 
-        # Drop unwanted columns
+        # Remove unused columns if present
         for col in ["Unnamed: 0", "Soil_pH"]:
             if col in df.columns:
                 df = df.drop(columns=[col])
@@ -43,7 +57,7 @@ class PlantHealthModel:
 
     # ------------------------------------------------
     def preprocess(self, df):
-        """Encode target + scale numeric features."""
+        """Encode label + scale numeric features."""
         df = df.copy()
 
         # Encode target labels
@@ -54,8 +68,8 @@ class PlantHealthModel:
         X = df.drop(columns=["Plant_Health_Status"])
         y = df["Plant_Health_Status"]
 
-        # Scale features
         X_scaled = self.scaler.fit_transform(X)
+
         return X_scaled, y
 
     # ------------------------------------------------
@@ -77,23 +91,23 @@ class PlantHealthModel:
         logging.info(f"Training complete. Accuracy = {acc}")
         logging.info("\n" + classification_report(y_test, preds))
 
-        # Save everything
+        # Save all components
         joblib.dump(self.model, self.model_file)
-        joblib.dump(self.scaler, "plant_health_scaler.pkl")
-        joblib.dump(self.label_encoder, "plant_health_encoder.pkl")
+        joblib.dump(self.scaler, self.scaler_file)
+        joblib.dump(self.label_encoder, self.encoder_file)
 
         return acc
 
     # ------------------------------------------------
     def predict(self, soil_moisture, temp, humidity,
                 light, nitrogen, phosphorus, potassium):
-
         """Predict plant health with trained SVM."""
-        # Load saved objects if needed
+
+        # Load saved model/scaler/encoder if not in memory
         if self.model is None:
             self.model = joblib.load(self.model_file)
-            self.scaler = joblib.load("plant_health_scaler.pkl")
-            self.label_encoder = joblib.load("plant_health_encoder.pkl")
+            self.scaler = joblib.load(self.scaler_file)
+            self.label_encoder = joblib.load(self.encoder_file)
 
         df = pd.DataFrame([{
             "Soil_Moisture": soil_moisture,
@@ -105,7 +119,7 @@ class PlantHealthModel:
             "Potassium_Level": potassium
         }])
 
-        # Scale numeric features
+        # Scale input
         X_scaled = self.scaler.transform(df)
 
         pred = self.model.predict(X_scaled)[0]
@@ -116,9 +130,6 @@ class PlantHealthModel:
 
     # ------------------------------------------------
     def retrain(self):
-        """Retrain using updated dataset."""
+        """Auto retrain on updated dataset."""
         logging.info("Retraining started...")
         return self.train()
-
-
-
