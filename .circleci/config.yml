@@ -32,6 +32,7 @@ jobs:
             git commit -m "Nightly Auto Retrain $(date)" || true
             git push https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git || true
 
+
 workflows:
   nightly_training:
     triggers:
@@ -43,3 +44,8 @@ workflows:
                 - main
     jobs:
       - retrain
+
+  manual_training:
+    jobs:
+      - retrain
+      
