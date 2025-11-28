@@ -1,0 +1,5 @@
+# Run inference on boot
+@reboot python3 /home/pi/Smart-Farming-AI-System/raspberry_pi/inference_loop.py &
+
+# Upload sensor data every hour
+0 * * * * bash /home/pi/Smart-Farming-AI-System/raspberry_pi/upload_data.sh
