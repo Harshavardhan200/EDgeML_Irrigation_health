@@ -113,48 +113,47 @@ The model will be stored in:
 ~/.cache/huggingface/
 ```
 ---
-
-## 8. Project Structure
-
+## 📁 Project Structure
+```
 Smart-Farming-AI-System/
 │
-├── data/
-│   ├── irrigation.csv
-│   └── plant_health_data.csv
+├── 📂 data/
+│ ├── 📄 irrigation.csv
+│ └── 📄 plant_health_data.csv
 │
-├── models/
-│   ├── irrigation/
-│   │   ├── current/
-│   │   └── versions/
-│   └── plant_health/
-│       ├── current/
-│       └── versions/
+├── 📂 models/
+│ ├── 📂 irrigation/
+│ │ ├── 📁 current/
+│ │ └── 🗂️ versions/
+│ └── 📂 plant_health/
+│ ├── 📁 current/
+│ └── 🗂️ versions/
 │
-├── src/
-│   ├── Irrigation_Model.py
-│   ├── plant_health.py
-│   ├── agriculture.py
-│   ├── sensors_ads.py
-│   ├── npk_sensor.py
+├── 🧠 src/
+│ ├── 🧪 Irrigation_Model.py
+│ ├── 🌿 plant_health.py
+│ ├── 🚜 agriculture.py
+│ ├── 🔌 sensors_ads.py
+│ ├── 🧪 npk_sensor.py
 │
-├── raspberry_pi/
-│   ├── inference_loop.py
-│   ├── upload_data.sh
-│   └── crontab_setup.txt
+├── 🍓 raspberry_pi/
+│ ├── ⚡ inference_loop.py
+│ ├── 📡 upload_data.sh
+│ └── 🕒 crontab_setup.txt
 │
-├── mlops/
-│   ├── config.py
-│   ├── utils.py
-│   ├── metrics.py
-│   ├── train_irrigation.py
-│   ├── train_plant_health.py
-│   └── retrain_all.py
+├── ⚙️ mlops/
+│ ├── ⚙️ config.py
+│ ├── 🧰 utils.py
+│ ├── 📊 metrics.py
+│ ├── 🔁 train_irrigation.py
+│ ├── 🧬 train_plant_health.py
+│ └── ♻️ retrain_all.py
 │
-├── .circleci/
-│   └── config.yml
+├── 🔄 .circleci/
+│ └── ⚙️ config.yml
 │
-└── README.md
-
+└── 📘 README.md
+```
 ---
 
 ## 9. Running Real-Time Inference on Raspberry Pi
