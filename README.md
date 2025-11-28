@@ -85,33 +85,33 @@ safetensors
 requests
 
 Install the dependencies:
-
+```bash
 sudo pip3 install --break-system-packages -r requirements.txt
-
+```
 ---
 
 ## 6. Install PyTorch CPU
-
+```bash
 sudo pip3 install --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu
-
+```
 Fix NumPy if necessary:
-
+```bash
 sudo pip3 install --break-system-packages numpy --upgrade
-
+```
 ---
 
 ## 7. Download Offline LLM Model
-
+```bash
 python3 - << 'EOF'
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
 AutoTokenizer.from_pretrained("google/flan-t5-small")
 EOF
-
+```
 The model will be stored in:
-
+```bash
 ~/.cache/huggingface/
-
+```
 ---
 
 ## 8. Project Structure
