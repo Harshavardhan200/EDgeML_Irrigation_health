@@ -1,92 +1,78 @@
-# Smart Farming AI System  
-### Irrigation Model + Plant Health Model + Offline LLM (HuggingFace)  
-### Raspberry Pi 5 Installation & Usage Guide
+# Smart Farming AI System
+## Irrigation Model + Plant Health Model + Offline LLM (FLAN-T5 Small)
+## Raspberry Pi 5 + EdgeML + Automated MLOps (Nightly Retrain + Rollback)
 
 ---
 
 ## 1. Overview
 
-This project integrates:
+This project implements a complete Edge Machine Learning + MLOps workflow for a Smart Farming system that runs fully offline. It includes:
 
-- Irrigation prediction using a Support Vector Machine (SVM).
-- Plant health prediction using a separate SVM model.
-- Offline LLM inference using `google/flan-t5-small` on HuggingFace.
-- Sensor-based inputs:  
-  - Temperature & humidity (DHT11/DHT22)  
-  - Soil moisture (MCP3008 ADC)  
-  - Light intensity (LDR + resistor)
-  - Optional NPK sensor  
-- Logging-based operations for AI decision-making.
+- Irrigation prediction using an SVM classifier
+- Plant health classification using an SVM classifier
+- Offline LLM advisory generation using google/flan-t5-small
+- Real-time inference on Raspberry Pi 5
+- Hourly data upload from Raspberry Pi to GitHub
+- Nightly automatic retraining via CircleCI
+- Automatic rollback if new models perform worse
+- Full model versioning and tracking inside GitHub
 
-The entire system works **offline on Raspberry Pi 5**, optimized for low power and no-internet environments suitable for remote farming.
-
----
-
-## 2. Requirements
-
-### Hardware:
-- Raspberry Pi 5  
-- DHT11 or DHT22  
-- MCP3008 ADC  
-- Soil Moisture Sensor  
-- LDR + 10kΩ Resistor  
-- Optional NPK Sensor  
-- Jumper wires, breadboard
-
-### Software:
-- Python 3.11 or 3.13  
-- HuggingFace Transformers  
-- PyTorch CPU  
-- scikit-learn  
-- gpiozero, spidev, Adafruit DHT library
+The system is designed for remote agricultural environments where internet connectivity is limited or unavailable.
 
 ---
 
-## 3. Raspberry Pi Setup
+## 2. Hardware Requirements
 
-Update the system:
+- Raspberry Pi 5
+- DHT11 or DHT22 temperature & humidity sensor
+- ADS1115 or MCP3008 ADC module
+- Soil moisture sensor
+- LDR (Light Dependent Resistor) + 10kΩ resistor
+- Optional RS485-based NPK soil nutrient sensor
+- Jumper wires and breadboard
 
-```bash
+---
+
+## 3. Software Requirements
+
+- Python 3.11 or newer
+- scikit-learn
+- PyTorch CPU version
+- HuggingFace transformers
+- gpiozero
+- spidev
+- adafruit-circuitpython-dht
+- GitHub repository with versioning
+- CircleCI for automated retraining and rollback
+
+---
+
+## 4. Raspberry Pi Setup
+
+Update system:
+
 sudo apt update && sudo apt upgrade -y
-```
 
-Enable SPI:
+Enable SPI and I2C:
 
-```bash
 sudo raspi-config
-# Interface Options → SPI → Enable
-```
 
-Reboot:
+Install OS dependencies:
 
-```bash
-sudo reboot
-```
-
----
-
-## 4. Install OS-Level Dependencies
-
-```bash
 sudo apt install -y python3-pip python3-dev python3-full python3-smbus \
-                    libatlas-base-dev libopenjp2-7 libtiff5
-```
+libatlas-base-dev libopenjp2-7 libtiff5 python3-libgpiod
 
-Install GPIO sensor support:
+Install sensor libraries:
 
-```bash
-sudo apt install -y python3-libgpiod
 sudo pip3 install --break-system-packages adafruit-circuitpython-dht
 sudo pip3 install --break-system-packages gpiozero spidev
-```
 
 ---
 
-## 5. Python Requirements
+## 5. Python Dependencies
 
-Create **requirements.txt**:
+Create a requirements.txt file:
 
-```
 pandas
 numpy
 scikit-learn
@@ -97,165 +83,162 @@ spidev
 transformers==4.37.0
 safetensors
 requests
-```
 
-Install:
+Install the dependencies:
 
-```bash
 sudo pip3 install --break-system-packages -r requirements.txt
-```
 
 ---
 
-## 6. Install PyTorch (CPU)
+## 6. Install PyTorch CPU
 
-```bash
 sudo pip3 install --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu
-```
 
-If numpy breaks:
+Fix NumPy if necessary:
 
-```bash
 sudo pip3 install --break-system-packages numpy --upgrade
-```
 
 ---
 
-## 7. Download Offline HuggingFace LLM
+## 7. Download Offline LLM Model
 
-```bash
 python3 - << 'EOF'
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 AutoModelForSeq2SeqLM.from_pretrained("google/flan-t5-small")
 AutoTokenizer.from_pretrained("google/flan-t5-small")
 EOF
-```
 
-Model downloads to:
+The model will be stored in:
 
-```
 ~/.cache/huggingface/
-```
 
 ---
 
 ## 8. Project Structure
 
-```
-smart_farming_ai/
+Smart-Farming-AI-System/
 │
-├── irrigation_data.csv
-├── plant_health_data.csv
+├── data/
+│   ├── irrigation.csv
+│   └── plant_health_data.csv
 │
-├── Irrigation_Model.py
-├── plant_health.py
-├── agriculture.py
+├── models/
+│   ├── irrigation/
+│   │   ├── current/
+│   │   └── versions/
+│   └── plant_health/
+│       ├── current/
+│       └── versions/
 │
-├── requirements.txt
+├── src/
+│   ├── Irrigation_Model.py
+│   ├── plant_health.py
+│   ├── agriculture.py
+│   ├── sensors_ads.py
+│   ├── npk_sensor.py
+│
+├── raspberry_pi/
+│   ├── inference_loop.py
+│   ├── upload_data.sh
+│   └── crontab_setup.txt
+│
+├── mlops/
+│   ├── config.py
+│   ├── utils.py
+│   ├── metrics.py
+│   ├── train_irrigation.py
+│   ├── train_plant_health.py
+│   └── retrain_all.py
+│
+├── .circleci/
+│   └── config.yml
+│
 └── README.md
-```
 
 ---
 
-## 9. Running the AI System
+## 9. Running Real-Time Inference on Raspberry Pi
 
-Run:
+python3 raspberry_pi/inference_loop.py
 
-```bash
-python3 agriculture.py
-```
+This script handles:
 
-Process executed:
-
-1. Loads irrigation model.  
-2. Loads plant health model.  
-3. Reads real-time sensor values.  
-4. Predicts irrigation need.  
-5. Predicts plant health.  
-6. Generates AI advisory using offline LLM.  
-7. Logs everything.
-
-Example logs:
-
-```
-2025-01-10 03:12:44,553 - INFO - IrrigationModel initialized.
-2025-01-10 03:12:49,101 - INFO - Plant Health Prediction: Moderate Stress
-2025-01-10 03:12:52,033 - INFO - LLM Response Generated Successfully.
-```
+- Reading sensor values
+- Irrigation prediction
+- Plant health prediction
+- Generating offline LLM-based advisory using FLAN-T5 Small
+- Logging predictions for future retraining
 
 ---
 
-## 10. Sensor Wiring Guide
+## 10. MLOps Pipeline (Nightly Retraining + Rollback)
 
-### DHT11 / DHT22
+Nightly Retraining Steps (CircleCI)
 
-```
-VCC  → 3.3V  
-DATA → GPIO4  
-GND  → GND  
-```
+- Download the latest data from GitHub
+- Retrain the irrigation model
+- Retrain the plant health model
+- Compare the new accuracy with the previous version
+- If accuracy improves → update the current/ model
+- If accuracy decreases → rollback to previous version
+- Push updated models to GitHub
 
-### Soil Moisture Sensor → MCP3008 CH0
+Versioning Structure:
+models/irrigation/versions/<timestamp>/
+models/plant_health/versions/<timestamp>/
 
-```
-Soil Sensor → CH0
+Deployed Active Models:
+models/irrigation/current/
+models/plant_health/current/
+
+---
+
+## 11. Raspberry Pi Hourly Data Upload
+
+Add cron job:
+
+0 * * * * bash /home/pi/Smart-Farming-AI-System/raspberry_pi/upload_data.sh
+
+This allows new sensor data to be pushed hourly to GitHub for retraining.
+
+---
+
+## 12. Sensor Wiring
+
+DHT11 / DHT22
+VCC  → 3.3V
+DATA → GPIO4
+GND  → GND
+
+Soil Moisture Sensor → MCP3008
+Sensor → CH0
 CLK → GPIO11
 DOUT → GPIO9
 DIN → GPIO10
 CS → GPIO8
-VDD → 3.3V
-GND → GND
-```
 
-### LDR Light Sensor (Voltage Divider)
-
-```
-LDR — Resistor — MCP3008 CH1
-```
+LDR (Light Sensor)
+LDR → Resistor → MCP3008 CH1
 
 ---
 
-## 11. Troubleshooting
+## 13. Troubleshooting
 
-### Issue: Model Out-of-Memory / crash (`Killed` or exit -9)
-
-Use only:
-
-```
-google/flan-t5-small
-```
-
-Avoid larger models.
-
-### Issue: typing_extensions uninstall conflict
-
-Fix:
-
-```bash
-sudo pip3 install --break-system-packages --ignore-installed package_name
-```
-
-### Issue: PyTorch fails to import
-
-Reinstall CPU wheel:
-
-```bash
+PyTorch ImportError:
 sudo pip3 install --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu
-```
+
+DHT Sensor Failure:
+sudo pip3 install --break-system-packages adafruit-circuitpython-dht
+
+NumPy Version Errors:
+sudo pip3 install --break-system-packages numpy --upgrade
 
 ---
 
-## 12. Future Enhancements
+## 14. Future Improvements
 
-- Add cloud sync (MQTT or Firebase).
-- Live dashboard using Flask.
-- ESP32 sensor expansion.
-- Mobile app integration.
-- Voice-based local assistant (offline TTS).
-
----
-
-## 13. License
-
-Open-source for research and educational purposes.
-
+- Add MQTT or AWS IoT cloud sync
+- Develop live Streamlit dashboard
+- Add ESP32 wireless remote sensor nodes
+- Add drone-based crop imagery integration
+- Add offline TTS for voice-based advisory
