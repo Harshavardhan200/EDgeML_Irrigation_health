@@ -157,9 +157,9 @@ Smart-Farming-AI-System/
 ---
 
 ## 9. Running Real-Time Inference on Raspberry Pi
-
+```bash
 python3 raspberry_pi/inference_loop.py
-
+```
 This script handles:
 
 - Reading sensor values
@@ -183,21 +183,23 @@ Nightly Retraining Steps (CircleCI)
 - Push updated models to GitHub
 
 Versioning Structure:
+```
 models/irrigation/versions/<timestamp>/
 models/plant_health/versions/<timestamp>/
-
+```
 Deployed Active Models:
+```
 models/irrigation/current/
 models/plant_health/current/
-
+```
 ---
 
 ## 11. Raspberry Pi Hourly Data Upload
 
 Add cron job:
-
+```
 0 * * * * bash /home/pi/Smart-Farming-AI-System/raspberry_pi/upload_data.sh
-
+```
 This allows new sensor data to be pushed hourly to GitHub for retraining.
 
 ---
@@ -224,14 +226,17 @@ LDR → Resistor → MCP3008 CH1
 ## 13. Troubleshooting
 
 PyTorch ImportError:
+```bash
 sudo pip3 install --break-system-packages torch --index-url https://download.pytorch.org/whl/cpu
-
+```
 DHT Sensor Failure:
+```bash
 sudo pip3 install --break-system-packages adafruit-circuitpython-dht
-
+```
 NumPy Version Errors:
+```bash
 sudo pip3 install --break-system-packages numpy --upgrade
-
+```
 ---
 
 ## 14. Future Improvements
