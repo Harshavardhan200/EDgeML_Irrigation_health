@@ -1,23 +1,21 @@
+"""
+Utility helpers for model versioning, rollback, and git integration.
+"""
 import os
 import shutil
 import subprocess
-from datetime import datetime
-import json
+from typing import Optional, List
 
-# =========================================
-# TIMESTAMP
-# =========================================
-def timestamp():
-    return datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+from mlops.config import PROJECT_ROOT, timestamp
 
 
 # =========================================
-# VERSION FOLDER (INCLUDES ACCURACY)
+# VERSION FOLDER HELPERS
 # =========================================
-def create_version_dir(model_dir, acc: float):
-    """
-    Create a version folder:
-    models/.../versions/YYYY-MM-DD_HH-MM-SS_acc_0.9523/
+def create_version_dir(model_dir: str, acc: float) -> str:
+    """Create a version folder like:
+    models/<name>/versions/2025-11-30_23-59-59_acc_0.9523/
+    and return its absolute path.
     """
     folder = f"{timestamp()}_acc_{acc:.4f}"
     version_dir = os.path.join(model_dir, "versions", folder)
@@ -25,115 +23,103 @@ def create_version_dir(model_dir, acc: float):
     return version_dir
 
 
-# =========================================
-# COPY MODELS INTO VERSION FOLDER
-# =========================================
-def version_models(current_dir, version_dir):
-    """
-    Copy the contents of 'current/' into a versioned folder.
-    """
-    if not os.path.exists(current_dir):
-        print(f"⚠ ERROR: Current model folder does not exist: {current_dir}")
-        return
+def version_models(model_dir: str, version_dir: str) -> None:
+    """Copy all top-level .pkl files from model_dir into version_dir.
 
+    This will copy, e.g.:
+      models/irrigation/irrigation_model.pkl
+      models/irrigation/irrigation_scaler.pkl
+      models/irrigation/irrigation_encoders.pkl
+    into:
+      models/irrigation/versions/<timestamp_acc_x.xxx>/
+    """
     os.makedirs(version_dir, exist_ok=True)
-    for file in os.listdir(current_dir):
-        src = os.path.join(current_dir, file)
-        dst = os.path.join(version_dir, file)
-        shutil.copy2(src, dst)
 
-    print(f"📦 Saved versioned model → {version_dir}")
+    for name in os.listdir(model_dir):
+        src = os.path.join(model_dir, name)
+        # Only copy top-level .pkl files (skip subfolders like current/ and versions/)
+        if os.path.isfile(src) and name.endswith(".pkl"):
+            dst = os.path.join(version_dir, name)
+            shutil.copy2(src, dst)
+
+    print(f"📦 Saved versioned models → {version_dir}")
 
 
-# =========================================
-# ROLLBACK FUNCTIONS
-# =========================================
-def rollback_to_previous(model_dir):
+def list_versions(model_dir: str) -> List[str]:
+    """Return sorted list of version folder names (not full paths)."""
+    versions_root = os.path.join(model_dir, "versions")
+    if not os.path.exists(versions_root):
+        return []
+    return sorted(
+        [d for d in os.listdir(versions_root) if os.path.isdir(os.path.join(versions_root, d))]
+    )
+
+
+def latest_version_dir(model_dir: str) -> Optional[str]:
+    """Return absolute path to latest version folder, or None if none exist."""
+    versions_root = os.path.join(model_dir, "versions")
+    versions = list_versions(model_dir)
+    if not versions:
+        return None
+    latest = versions[-1]
+    return os.path.join(versions_root, latest)
+
+
+def set_current_from_version_dir(model_dir: str, version_dir: str) -> None:
+    """Copy all files from a given version_dir into model_dir/current."""
+    current_dir = os.path.join(model_dir, "current")
+    os.makedirs(current_dir, exist_ok=True)
+    shutil.copytree(version_dir, current_dir, dirs_exist_ok=True)
+    print(f"🔁 Updated current model for {model_dir} from {version_dir}")
+
+
+def rollback_to_previous(model_dir: str) -> bool:
+    """Set current/ to the previous (second-latest) version.
+
+    Returns True if rollback happened, False otherwise.
     """
-    Revert current model to previous version.
-    Does NOT delete the latest version.
-    """
-    versions_path = os.path.join(model_dir, "versions")
-    if not os.path.exists(versions_path):
-        print("⚠ No versions folder found.")
-        return False
-
-    versions = sorted(os.listdir(versions_path))
+    versions_root = os.path.join(model_dir, "versions")
+    versions = list_versions(model_dir)
     if len(versions) < 2:
-        print("⚠ Not enough versions to rollback.")
+        print(f"⚠ Not enough versions to rollback in {versions_root}")
         return False
 
-    prev_version = versions[-2]
-    src = os.path.join(versions_path, prev_version)
+    prev = versions[-2]
+    src = os.path.join(versions_root, prev)
     dst = os.path.join(model_dir, "current")
-
-    print(f"🔄 Rolling back to: {prev_version}")
+    os.makedirs(dst, exist_ok=True)
     shutil.copytree(src, dst, dirs_exist_ok=True)
+    print(f"🔄 Rolled back {model_dir} to version {prev}")
     return True
 
 
 # =========================================
-# METRICS SAVE / LOAD
+# OPTIONAL: SAFE GIT COMMIT AND PUSH (for local use)
 # =========================================
-def load_last_metrics(path="mlops/last_metrics.json"):
-    if not os.path.exists(path):
-        print("⚠ No previous metrics found → starting fresh.")
-        return {"irrigation_acc": 0, "plant_acc": 0}
+def git_commit_and_push(message: str) -> None:
+    """Commit and push changes using the local git configuration.
 
-    with open(path, "r") as f:
-        return json.load(f)
-
-
-def save_metrics(irrigation_acc, plant_acc, path="mlops/last_metrics.json"):
-    data = {
-        "irrigation_acc": irrigation_acc,
-        "plant_acc": plant_acc,
-        "timestamp": timestamp(),
-    }
-    with open(path, "w") as f:
-        json.dump(data, f, indent=4)
-    print("📊 Metrics updated.")
-
-
-# =========================================
-# SHOULD WE ROLLBACK?
-# =========================================
-def should_rollback(prev_acc, new_acc):
+    In CI (CircleCI), it's usually better to commit/push from the pipeline
+    config directly. This helper is mostly for manual/local workflows.
     """
-    Return True if accuracy dropped.
-    """
-    return new_acc < prev_acc
-
-
-# =========================================
-# SAFE GIT COMMIT AND PUSH
-# =========================================
-def git_commit_and_push(message: str):
-    """
-    Safe push that avoids rejections and works with CircleCI.
-    """
-
     try:
-        # Pull latest (avoid conflicts)
+        # Ensure we are in the project root
+        os.chdir(PROJECT_ROOT)
+
+        # Fetch / rebase to avoid simple conflicts
         subprocess.run(["git", "pull", "--rebase"], check=False)
 
-        # Add everything needed
-        subprocess.run(["git", "add", "."], check=False)
+        # Add all relevant changes
+        subprocess.run(["git", "add", "models/"], check=False)
+        subprocess.run(["git", "add", "mlops/last_metrics.json"], check=False)
 
-        # Commit
+        # Commit (no error if there is nothing to commit)
         subprocess.run(["git", "commit", "-m", message], check=False)
 
-        # Push using CircleCI token
-        repo_url = os.environ.get("CIRCLE_REPOSITORY_URL")
-        github_token = os.environ.get("GITHUB_TOKEN")
+        # Push using the default remote
+        subprocess.run(["git", "push"], check=False)
 
-        if github_token and repo_url:
-            safe_url = repo_url.replace("https://", f"https://{github_token}@")
-            subprocess.run(["git", "push", safe_url], check=False)
-        else:
-            subprocess.run(["git", "push"], check=False)
+        print("⬆ Git commit & push attempted.")
 
-        print("⬆ Git push complete.")
-
-    except Exception as e:
-        print(f"❌ Git push failed: {e}")
+    except Exception as exc:
+        print(f"❌ git_commit_and_push failed: {exc}")
