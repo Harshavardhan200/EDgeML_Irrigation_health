@@ -1,23 +1,25 @@
 import os
-from mlops.config import DATA_PATH, PLANT_MODEL_DIR
-from mlops.utils import create_version_dir, version_models, git_commit_and_push
+
+from mlops.config import PLANT_MODEL_DIR
+from mlops.utils import create_version_dir, version_models
 from src.plant_health import PlantHealthModel
 
-def train_plant_health():
 
+def train_plant_health():
+    """Train plant-health model, save a versioned snapshot, and return (acc, version_dir)."""
     print("🌿 Training PLANT HEALTH model...")
 
-    csv_path = os.path.join(DATA_PATH, "plant_health_data.csv")
-
     model = PlantHealthModel()
-    acc = model.train_from_csv(csv_path)
+    acc = model.train()
 
-    model.save_all(PLANT_MODEL_DIR)
+    if acc is None:
+        print("⚠ Plant health training returned None (possibly empty dataset).")
+        return 0.0, None
 
+    print(f"🌿 Plant health accuracy: {acc:.4f}")
+
+    # Save a version folder with timestamp + accuracy
     version_dir = create_version_dir(PLANT_MODEL_DIR, acc)
-    version_models(os.path.join(PLANT_MODEL_DIR, "current"), version_dir)
+    version_models(PLANT_MODEL_DIR, version_dir)
 
-    git_commit_and_push(f"Updated plant health model | acc={acc:.4f}")
-
-    print("✔ PLANT HEALTH retraining complete.")
-    return acc
+    return acc, version_dir
