@@ -8,12 +8,13 @@ import subprocess
 # VERSIONING FUNCTIONS (NEEDED BY training scripts)
 # ============================================================
 
-def create_version_dir(base_path):
-    """Creates a timestamped version directory."""
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-    version_path = os.path.join(base_path, "versions", timestamp)
-    os.makedirs(version_path, exist_ok=True)
-    return version_path
+def create_version_dir(base_dir, acc):
+    from mlops.config import timestamp
+    folder = f"{timestamp()}_acc_{acc:.4f}"
+    version_dir = os.path.join(base_dir, "versions", folder)
+    os.makedirs(version_dir, exist_ok=True)
+    return version_dir
+
 
 
 def save_current_model(src_path, dst_path):
