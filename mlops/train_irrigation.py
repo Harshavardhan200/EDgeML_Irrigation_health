@@ -1,6 +1,6 @@
 import os
 from mlops.config import DATA_PATH, IRRIGATION_MODEL_DIR
-from mlops.utils import create_version_dir, version_models, save_current_model, git_commit_and_push
+from mlops.utils import create_version_dir, version_models, git_commit_and_push
 from src.Irrigation_Model import IrrigationModel
 
 def train_irrigation():
@@ -10,25 +10,17 @@ def train_irrigation():
     csv_path = os.path.join(DATA_PATH, "irrigation.csv")
 
     model = IrrigationModel()
-    model.train_from_csv(csv_path)
+    acc = model.train_from_csv(csv_path)
 
-    # -------------------------
-    # SAVE NEW MODEL FILES
-    # -------------------------
-    model_files = model.save_all(IRRIGATION_MODEL_DIR)  
-    # Your IrrigationModel should implement save_all()
+    # Save model to "current"
+    model.save_all(IRRIGATION_MODEL_DIR)
 
-    # -------------------------
-    # VERSIONING
-    # -------------------------
-    version_dir = create_version_dir(IRRIGATION_MODEL_DIR)
+    # Save version folder INCLUDING ACCURACY
+    version_dir = create_version_dir(IRRIGATION_MODEL_DIR, acc)
     version_models(os.path.join(IRRIGATION_MODEL_DIR, "current"), version_dir)
 
-    # -------------------------
-    # COMMIT TO GITHUB
-    # -------------------------
-    git_commit_and_push("Updated irrigation model")
+    # Push
+    git_commit_and_push(f"Updated irrigation model | acc={acc:.4f}")
 
     print("✔ IRRIGATION retraining complete.")
-    acc = model.train()
     return acc
