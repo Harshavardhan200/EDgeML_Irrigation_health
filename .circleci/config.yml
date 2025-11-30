@@ -4,58 +4,87 @@ jobs:
   retrain:
     docker:
       - image: cimg/python:3.10
+
     steps:
       - checkout
 
+      # --------------------------
+      # Install Python dependencies
+      # --------------------------
       - run:
           name: Install Dependencies
           command: |
             pip install --upgrade pip
             pip install -r requirements.txt
 
+      # --------------------------
+      # Set Git identity for commits
+      # --------------------------
       - run:
           name: Set Git Identity
           command: |
             git config --global user.email "circleci@smartfarming.ai"
             git config --global user.name "CircleCI Auto Bot"
 
+      # --------------------------
+      # Sync repo cleanly
+      # --------------------------
       - run:
           name: Sync Repo
           command: |
             git fetch --all
             git reset --hard origin/main
-            git pull --rebase
 
+      # --------------------------
+      # Run nightly retraining
+      # --------------------------
       - run:
           name: Retrain Models
           command: |
             echo "===== Running nightly retrain ====="
             python3 -m mlops.retrain_all
 
+      # --------------------------
+      # Show changed files
+      # --------------------------
       - run:
           name: Debug Git Status
           command: |
-            echo "===== Files changed ====="
-            git status
+            echo "===== Git Status After Retrain ====="
+            git status -s
             ls -R models/
 
+      # --------------------------
+      # Commit ALL model updates
+      # --------------------------
       - run:
           name: Commit Model Updates
           command: |
-            git add models/ || true
-            git add mlops/last_metrics.json || true
+            echo "===== Staging models ====="
+            git add models/ -A
+
+            echo "===== Staging metrics file (if exists) ====="
+            if [ -f mlops/last_metrics.json ]; then
+                git add mlops/last_metrics.json
+            else
+                echo "⚠ No metrics file found (no accuracy improvement)."
+            fi
 
             if git diff --cached --quiet; then
-                echo "No changes to commit."
+                echo "⚠ No changes to commit."
             else
                 git commit -m "Nightly Auto Retrain: $(date '+%Y-%m-%d %H:%M:%S')"
             fi
 
+      # --------------------------
+      # Push to GitHub USING YOUR USERNAME
+      # --------------------------
       - run:
           name: Push to GitHub
           command: |
+            echo "===== Pushing to GitHub ====="
             git push https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git || {
-              echo "Git push failed. Retrying with --force...";
+              echo "⚠ Push failed. Retrying with --force...";
               git push --force https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git;
             }
 
