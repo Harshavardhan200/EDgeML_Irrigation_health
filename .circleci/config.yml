@@ -14,24 +14,50 @@ jobs:
             pip install -r requirements.txt
 
       - run:
-          name: Sync Repo (Avoid Push Rejections)
+          name: Set Git Identity
           command: |
-            git config user.email "ci@circleci.com"
-            git config user.name "CircleCI Bot"
-            git pull --rebase || true
+            git config --global user.email "circleci@smartfarming.ai"
+            git config --global user.name "CircleCI Auto Bot"
 
       - run:
-          name: Retrain All Models
-          command: python3 -m mlops.retrain_all
+          name: Sync Repo
+          command: |
+            git fetch --all
+            git reset --hard origin/main
+            git pull --rebase
 
       - run:
-          name: Commit & Push Updated Models
+          name: Retrain Models
           command: |
-            git add models/
+            echo "===== Running nightly retrain ====="
+            python3 -m mlops.retrain_all
+
+      - run:
+          name: Debug Git Status
+          command: |
+            echo "===== Files changed ====="
+            git status
+            ls -R models/
+
+      - run:
+          name: Commit Model Updates
+          command: |
+            git add models/ || true
             git add mlops/last_metrics.json || true
-            git commit -m "Nightly Auto Retrain $(date)" || true
-            git push https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git || true
 
+            if git diff --cached --quiet; then
+                echo "No changes to commit."
+            else
+                git commit -m "Nightly Auto Retrain: $(date '+%Y-%m-%d %H:%M:%S')"
+            fi
+
+      - run:
+          name: Push to GitHub
+          command: |
+            git push https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git || {
+              echo "Git push failed. Retrying with --force...";
+              git push --force https://${GITHUB_TOKEN}@github.com/Harshavardhan200/Smart-Farming-AI-System.git;
+            }
 
 workflows:
   nightly_training:
@@ -48,4 +74,3 @@ workflows:
   manual_training:
     jobs:
       - retrain
-      
