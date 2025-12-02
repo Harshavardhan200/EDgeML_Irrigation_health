@@ -1,0 +1,11 @@
+timestamp,soil_type,stage,moisture,temp,humidity,light,nitrogen,phosphorus,potassium,irrigation_pred
+2025-12-01 21:55:52,Black Soil,Germination,3.4,22.25,40.26,215,39,17,33,1
+2025-12-01 21:56:02,Black Soil,Germination,2.65,26.19,48.04,469,33,17,28,1
+2025-12-01 21:56:12,Black Soil,Germination,7.31,23.66,47.2,826,19,30,33,1
+2025-12-01 21:56:23,Black Soil,Germination,6.02,24.0,48.87,865,11,21,22,1
+2025-12-01 21:56:33,Black Soil,Germination,7.06,26.85,51.93,781,12,13,22,1
+2025-12-01 21:56:43,Black Soil,Germination,2.91,23.71,52.83,651,16,25,29,1
+2025-12-01 21:56:53,Black Soil,Germination,5.05,22.7,48.05,436,22,31,27,1
+2025-12-01 21:58:38,Black Soil,Germination,5.63,23.85,40.27,597,21,28,13,1
+2025-12-01 21:58:48,Black Soil,Germination,3.78,27.27,63.5,873,14,16,27,1
+2025-12-01 21:58:58,Black Soil,Germination,5.61,23.48,67.53,366,22,16,35,1
