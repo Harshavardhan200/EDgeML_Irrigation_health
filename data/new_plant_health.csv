@@ -1,151 +1,51 @@
-timestamp,soil_type,stage,moisture,temp,humidity,light,nitrogen,phosphorus,potassium,plant_pred
-2025-12-01 21:55:52,Black Soil,Germination,3.4,22.25,40.26,215,39,17,33,High Stress
-2025-12-01 21:56:02,Black Soil,Germination,2.65,26.19,48.04,469,33,17,28,High Stress
-2025-12-01 21:56:12,Black Soil,Germination,7.31,23.66,47.2,826,19,30,33,High Stress
-2025-12-01 21:56:23,Black Soil,Germination,6.02,24.0,48.87,865,11,21,22,High Stress
-2025-12-01 21:56:33,Black Soil,Germination,7.06,26.85,51.93,781,12,13,22,High Stress
-2025-12-01 21:56:43,Black Soil,Germination,2.91,23.71,52.83,651,16,25,29,High Stress
-2025-12-01 21:56:53,Black Soil,Germination,5.05,22.7,48.05,436,22,31,27,High Stress
-2025-12-01 21:58:38,Black Soil,Germination,5.63,23.85,40.27,597,21,28,13,High Stress
-2025-12-01 21:58:48,Black Soil,Germination,3.78,27.27,63.5,873,14,16,27,High Stress
-2025-12-01 21:58:58,Black Soil,Germination,5.61,23.48,67.53,366,22,16,35,High Stress
-2025-12-01 22:05:22,Black Soil,Germination,3.92,22.16,65.44,460,19,15,12,High Stress
-2025-12-01 22:05:32,Black Soil,Germination,3.02,22.68,46.32,360,12,16,19,High Stress
-2025-12-01 22:05:42,Black Soil,Germination,2.72,25.58,59.29,641,25,10,23,High Stress
-2025-12-01 22:05:52,Black Soil,Germination,2.58,22.29,69.49,856,27,39,12,High Stress
-2025-12-01 22:06:02,Black Soil,Germination,2.91,26.53,50.4,405,17,23,38,High Stress
-2025-12-01 22:06:12,Black Soil,Germination,5.77,23.04,56.91,826,37,19,40,High Stress
-2025-12-01 22:06:22,Black Soil,Germination,6.19,26.79,44.81,897,19,12,30,High Stress
-2025-12-01 22:06:33,Black Soil,Germination,3.41,25.47,40.32,441,30,16,37,High Stress
-2025-12-01 22:06:43,Black Soil,Germination,1.04,22.94,61.53,283,18,26,19,High Stress
-2025-12-01 22:06:53,Black Soil,Germination,3.81,26.48,50.14,507,14,26,14,High Stress
-2025-12-01 22:07:03,Black Soil,Germination,5.05,23.5,65.47,372,19,39,10,High Stress
-2025-12-01 22:07:13,Black Soil,Germination,3.06,25.18,47.83,707,35,39,28,High Stress
-2025-12-01 22:10:03,Black Soil,Germination,5.63,23.17,63.75,703,29,36,13,High Stress
-2025-12-01 22:10:13,Black Soil,Germination,2.23,26.88,62.99,428,27,31,19,High Stress
-2025-12-01 22:12:49,Black Soil,Germination,6.03,25.58,66.57,772,31,39,22,High Stress
-2025-12-01 22:12:59,Black Soil,Germination,5.3,24.12,47.53,820,34,26,29,High Stress
-2025-12-01 22:15:22,Black Soil,Germination,6.18,23.55,48.68,547,36,20,24,High Stress
-2025-12-01 22:15:32,Black Soil,Germination,1.28,27.03,67.84,574,39,13,18,High Stress
-2025-12-01 22:15:43,Black Soil,Germination,1.54,23.98,42.86,755,14,38,12,High Stress
-2025-12-01 22:28:59,Black Soil,Germination,2.41,28.63,54.15,836,19,11,33,High Stress
-2025-12-01 22:29:48,Black Soil,Germination,6.4,23.05,56.6,509,27,14,23,High Stress
-2025-12-01 22:29:58,Black Soil,Germination,4.83,23.98,67.42,356,25,26,13,High Stress
-2025-12-01 22:35:56,Black Soil,Germination,6.74,22.6,60.75,250,24,38,25,High Stress
-2025-12-01 22:36:06,Black Soil,Germination,2.87,23.5,54.82,320,23,35,19,High Stress
-2025-12-01 22:36:16,Black Soil,Germination,6.41,25.96,64.71,317,10,12,37,High Stress
-2025-12-01 22:36:26,Black Soil,Germination,2.98,24.2,44.01,612,40,23,25,High Stress
-2025-12-01 22:37:53,Black Soil,Germination,6.16,22.26,50.79,892,23,23,38,High Stress
-2025-12-01 22:38:03,Black Soil,Germination,4.61,28.02,46.65,297,39,17,33,High Stress
-2025-12-01 22:38:13,Black Soil,Germination,6.14,25.95,42.92,877,34,13,26,High Stress
-2025-12-01 22:38:23,Black Soil,Germination,7.26,28.48,47.87,533,16,28,15,High Stress
-2025-12-01 22:38:33,Black Soil,Germination,5.08,23.9,53.51,262,16,16,26,High Stress
-2025-12-01 22:38:43,Black Soil,Germination,1.86,22.92,47.77,512,36,32,15,High Stress
-2025-12-01 22:38:53,Black Soil,Germination,7.08,23.24,41.66,563,37,13,29,High Stress
-2025-12-01 22:39:03,Black Soil,Germination,4.09,24.28,48.39,713,17,21,39,High Stress
-2025-12-01 22:39:13,Black Soil,Germination,3.25,27.59,49.07,334,31,33,21,High Stress
-2025-12-01 22:39:23,Black Soil,Germination,6.19,22.66,56.75,308,35,20,19,High Stress
-2025-12-01 22:39:33,Black Soil,Germination,3.69,24.72,40.27,624,11,25,35,High Stress
-2025-12-01 22:39:43,Black Soil,Germination,3.43,28.54,43.14,597,21,24,33,High Stress
-2025-12-01 22:39:53,Black Soil,Germination,5.98,28.85,52.55,408,35,10,12,High Stress
-2025-12-01 22:40:03,Black Soil,Germination,3.67,25.19,56.62,488,35,27,29,High Stress
-2025-12-01 22:40:14,Black Soil,Germination,3.73,28.41,56.63,275,30,26,31,High Stress
-2025-12-01 22:40:24,Black Soil,Germination,3.51,26.76,40.74,881,20,12,23,High Stress
-2025-12-01 22:40:34,Black Soil,Germination,2.67,24.81,63.96,596,21,12,38,High Stress
-2025-12-01 22:40:44,Black Soil,Germination,2.4,28.28,40.12,259,30,12,22,High Stress
-2025-12-01 22:40:54,Black Soil,Germination,2.65,22.78,61.16,842,12,31,17,High Stress
-2025-12-01 22:41:05,Black Soil,Germination,5.6,23.93,69.28,762,30,38,34,High Stress
-2025-12-01 22:41:15,Black Soil,Germination,5.56,28.67,58.46,576,20,23,37,High Stress
-2025-12-01 22:41:25,Black Soil,Germination,5.3,22.35,59.8,427,34,18,38,High Stress
-2025-12-01 22:41:35,Black Soil,Germination,5.29,22.08,43.45,458,32,33,39,High Stress
-2025-12-01 22:41:45,Black Soil,Germination,4.94,22.3,50.92,588,39,26,33,High Stress
-2025-12-01 22:41:55,Black Soil,Germination,3.13,28.1,67.06,678,13,23,38,High Stress
-2025-12-01 22:42:05,Black Soil,Germination,7.26,22.3,62.56,275,31,11,30,High Stress
-2025-12-01 22:42:15,Black Soil,Germination,6.23,28.71,47.55,497,13,40,13,High Stress
-2025-12-01 22:42:25,Black Soil,Germination,4.17,22.13,67.64,421,28,16,16,High Stress
-2025-12-01 22:42:35,Black Soil,Germination,3.76,25.8,66.31,207,24,23,20,High Stress
-2025-12-01 22:42:45,Black Soil,Germination,3.48,22.04,50.09,247,15,30,19,High Stress
-2025-12-01 22:42:55,Black Soil,Germination,6.07,22.12,63.31,221,17,36,19,High Stress
-2025-12-01 22:43:05,Black Soil,Germination,3.37,26.06,58.89,664,34,10,11,High Stress
-2025-12-01 22:43:15,Black Soil,Germination,4.1,22.18,52.43,465,32,35,40,High Stress
-2025-12-01 22:43:26,Black Soil,Germination,1.56,27.96,65.81,578,14,13,33,High Stress
-2025-12-01 22:43:36,Black Soil,Germination,1.19,22.51,68.78,677,34,37,12,High Stress
-2025-12-01 22:43:46,Black Soil,Germination,4.14,25.21,63.57,783,17,30,36,High Stress
-2025-12-01 22:43:56,Black Soil,Germination,2.5,22.23,64.36,495,25,32,15,High Stress
-2025-12-01 22:44:06,Black Soil,Germination,1.51,22.56,65.74,643,40,35,15,High Stress
-2025-12-01 22:44:16,Black Soil,Germination,2.45,22.96,62.34,502,29,38,20,High Stress
-2025-12-01 22:44:26,Black Soil,Germination,4.05,22.91,69.88,777,16,34,10,High Stress
-2025-12-01 22:47:08,Black Soil,Germination,6.51,26.51,58.68,627,16,16,12,High Stress
-2025-12-01 22:47:18,Black Soil,Germination,4.45,24.14,43.52,770,36,11,26,High Stress
-2025-12-01 22:47:29,Black Soil,Germination,2.55,25.26,59.47,580,32,20,29,High Stress
-2025-12-01 22:47:39,Black Soil,Germination,4.34,22.07,51.77,776,33,21,16,High Stress
-2025-12-01 22:49:25,Black Soil,Germination,6.38,22.22,48.94,280,31,24,10,High Stress
-2025-12-01 22:49:35,Black Soil,Germination,1.86,28.39,53.33,503,23,21,25,High Stress
-2025-12-01 22:49:45,Black Soil,Germination,6.71,23.31,50.1,515,33,25,30,High Stress
-2025-12-01 22:49:55,Black Soil,Germination,3.6,23.14,64.16,871,10,34,20,High Stress
-2025-12-01 22:50:05,Black Soil,Germination,2.57,28.93,46.95,772,28,37,23,High Stress
-2025-12-01 22:50:15,Black Soil,Germination,2.69,23.68,67.29,784,20,18,15,High Stress
-2025-12-01 22:50:25,Black Soil,Germination,3.92,24.92,56.69,399,18,38,17,High Stress
-2025-12-01 22:50:36,Black Soil,Germination,1.81,22.08,64.72,587,24,18,37,High Stress
-2025-12-01 22:50:46,Black Soil,Germination,1.64,26.59,52.2,465,23,37,16,High Stress
-2025-12-01 22:50:56,Black Soil,Germination,6.05,22.62,52.04,419,33,14,10,High Stress
-2025-12-01 22:51:06,Black Soil,Germination,3.71,23.32,65.23,731,19,13,30,High Stress
-2025-12-01 22:51:16,Black Soil,Germination,1.48,26.08,54.41,698,39,36,26,High Stress
-2025-12-01 22:51:26,Black Soil,Germination,5.22,28.6,59.4,375,17,19,40,High Stress
-2025-12-01 22:51:36,Black Soil,Germination,1.75,27.14,62.79,362,20,37,38,High Stress
-2025-12-01 22:51:46,Black Soil,Germination,6.76,24.46,40.37,213,25,16,15,High Stress
-2025-12-01 22:51:56,Black Soil,Germination,3.36,25.67,68.09,566,22,17,27,High Stress
-2025-12-01 22:52:06,Black Soil,Germination,4.58,25.52,68.98,837,12,16,25,High Stress
-2025-12-01 22:52:16,Black Soil,Germination,4.99,23.38,48.41,746,18,33,26,High Stress
-2025-12-01 22:52:26,Black Soil,Germination,5.26,22.82,63.39,493,39,38,24,High Stress
-2025-12-01 22:52:36,Black Soil,Germination,1.72,24.03,50.02,668,25,25,27,High Stress
-2025-12-01 22:52:49,Black Soil,Germination,1.26,28.43,59.88,486,13,22,24,High Stress
-2025-12-01 22:52:59,Black Soil,Germination,5.72,24.58,44.56,351,31,35,22,High Stress
-2025-12-01 22:53:09,Black Soil,Germination,3.59,22.16,69.82,767,35,25,13,High Stress
-2025-12-01 22:53:19,Black Soil,Germination,1.8,27.67,62.8,634,33,15,12,High Stress
-2025-12-01 22:53:29,Black Soil,Germination,3.41,28.16,51.07,625,23,11,21,High Stress
-2025-12-01 22:53:39,Black Soil,Germination,1.6,28.27,54.0,645,14,26,30,High Stress
-2025-12-01 22:53:49,Black Soil,Germination,2.31,22.38,62.81,227,21,10,21,High Stress
-2025-12-01 22:53:59,Black Soil,Germination,3.65,25.61,69.69,451,10,17,22,High Stress
-2025-12-01 22:54:09,Black Soil,Germination,4.61,28.72,54.83,421,12,33,37,High Stress
-2025-12-01 22:54:19,Black Soil,Germination,7.08,22.81,45.41,452,18,40,18,High Stress
-2025-12-01 22:54:30,Black Soil,Germination,2.38,28.19,40.86,756,40,17,26,High Stress
-2025-12-01 22:54:40,Black Soil,Germination,1.43,24.5,69.53,314,20,31,36,High Stress
-2025-12-01 22:54:50,Black Soil,Germination,2.75,27.31,46.52,608,19,13,37,High Stress
-2025-12-01 22:55:00,Black Soil,Germination,2.44,23.0,55.44,271,13,39,22,High Stress
-2025-12-01 22:55:10,Black Soil,Germination,4.66,23.29,44.18,216,20,24,24,High Stress
-2025-12-01 22:55:20,Black Soil,Germination,1.49,22.32,42.45,204,22,31,34,High Stress
-2025-12-01 22:55:30,Black Soil,Germination,5.79,24.2,58.33,737,20,23,32,High Stress
-2025-12-01 22:55:40,Black Soil,Germination,4.93,28.28,50.45,830,31,30,24,High Stress
-2025-12-01 22:55:50,Black Soil,Germination,7.09,23.6,51.93,634,39,37,15,High Stress
-2025-12-01 22:56:00,Black Soil,Germination,6.39,25.9,51.81,208,33,29,15,High Stress
-2025-12-01 22:56:10,Black Soil,Germination,4.69,27.75,48.19,502,13,22,35,High Stress
-2025-12-01 22:56:21,Black Soil,Germination,6.38,23.69,54.78,471,20,12,26,High Stress
-2025-12-01 22:56:31,Black Soil,Germination,5.13,25.4,46.7,512,27,38,17,High Stress
-2025-12-01 22:56:41,Black Soil,Germination,4.36,26.5,55.04,443,21,14,37,High Stress
-2025-12-01 22:56:51,Black Soil,Germination,7.17,23.07,69.43,310,39,24,20,High Stress
-2025-12-01 22:57:01,Black Soil,Germination,1.67,24.29,49.62,667,10,30,40,High Stress
-2025-12-01 22:57:11,Black Soil,Germination,4.72,27.66,61.71,868,34,24,28,High Stress
-2025-12-01 22:57:21,Black Soil,Germination,6.28,27.24,45.53,839,11,26,35,High Stress
-2025-12-01 22:57:31,Black Soil,Germination,3.89,23.5,55.25,684,30,18,19,High Stress
-2025-12-01 22:57:41,Black Soil,Germination,6.3,24.78,50.18,635,20,15,24,High Stress
-2025-12-01 22:57:51,Black Soil,Germination,4.97,28.3,41.35,649,20,38,11,High Stress
-2025-12-01 22:58:01,Black Soil,Germination,2.25,28.16,69.54,320,21,12,27,High Stress
-2025-12-01 22:58:12,Black Soil,Germination,1.95,24.7,44.97,826,29,12,19,High Stress
-2025-12-01 22:58:22,Black Soil,Germination,1.47,22.58,60.22,204,22,13,14,High Stress
-2025-12-01 22:58:32,Black Soil,Germination,2.68,28.33,45.37,782,10,17,16,High Stress
-2025-12-01 22:58:42,Black Soil,Germination,7.22,23.53,69.9,787,38,36,16,High Stress
-2025-12-01 22:58:52,Black Soil,Germination,5.79,23.8,66.78,459,24,20,33,High Stress
-2025-12-01 22:59:02,Black Soil,Germination,2.97,27.95,41.1,291,10,16,15,High Stress
-2025-12-01 22:59:12,Black Soil,Germination,5.04,27.01,68.78,574,30,10,14,High Stress
-2025-12-01 22:59:22,Black Soil,Germination,1.55,28.11,43.49,331,35,38,34,High Stress
-2025-12-01 22:59:32,Black Soil,Germination,4.47,27.82,42.33,671,38,28,37,High Stress
-2025-12-01 22:59:42,Black Soil,Germination,2.47,26.54,63.87,279,36,28,28,High Stress
-2025-12-01 22:59:52,Black Soil,Germination,3.4,26.95,63.51,456,30,25,19,High Stress
-2025-12-01 23:00:03,Black Soil,Germination,6.43,25.31,45.56,595,27,37,25,High Stress
-2025-12-01 23:00:13,Black Soil,Germination,2.04,23.33,43.72,614,39,27,39,High Stress
-2025-12-01 23:00:23,Black Soil,Germination,3.33,23.95,66.86,425,28,40,40,High Stress
-2025-12-01 23:00:33,Black Soil,Germination,5.87,23.28,62.45,876,10,15,14,High Stress
-2025-12-01 23:00:43,Black Soil,Germination,3.73,27.74,66.93,298,34,21,32,High Stress
-2025-12-01 23:00:53,Black Soil,Germination,5.56,25.05,69.99,404,31,23,30,High Stress
-2025-12-01 23:01:03,Black Soil,Germination,6.4,22.52,49.91,470,27,37,37,High Stress
+Unnamed: 0
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
