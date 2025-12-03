@@ -1,21 +1,11 @@
-timestamp,soil_type,stage,moisture,temp,humidity,light,nitrogen,phosphorus,potassium,irrigation_pred
-2025-12-02 19:21:16,Black Soil,Germination,9.78,21.0,11,983.15,20,15,18,0
-2025-12-02 19:21:27,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,0
-2025-12-02 19:21:37,Black Soil,Germination,9.78,21.0,11,982.64,20,15,18,0
-2025-12-02 19:21:48,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,0
-2025-12-02 19:21:58,Black Soil,Germination,9.78,21.0,11,983.41,20,15,18,0
-2025-12-02 19:22:09,Black Soil,Germination,9.78,21.0,11,983.54,20,15,18,0
-2025-12-02 19:22:19,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,0
-2025-12-02 19:22:30,Black Soil,Germination,9.78,21.0,11,985.34,20,15,18,0
-2025-12-02 19:22:40,Black Soil,Germination,9.78,21.0,11,983.92,20,15,18,0
-2025-12-02 19:22:50,Black Soil,Germination,9.78,21.0,11,983.28,20,15,18,0
-2025-12-02 19:23:04,Black Soil,Germination,9.78,21.0,11,985.08,20,15,18,0
-2025-12-02 19:23:14,Black Soil,Germination,9.78,21.0,11,986.5,20,15,18,0
-2025-12-02 19:23:25,Black Soil,Germination,9.78,21.0,11,971.01,20,15,18,0
-2025-12-02 19:23:35,Black Soil,Germination,9.78,21.0,11,962.41,20,15,18,0
-2025-12-02 19:23:46,Black Soil,Germination,9.78,21.0,11,976.49,20,15,18,0
-2025-12-02 19:23:56,Black Soil,Germination,9.78,21.0,11,977.38,20,15,18,0
-2025-12-02 19:24:06,Black Soil,Germination,9.78,21.0,11,976.23,20,15,18,0
-2025-12-02 19:24:17,Black Soil,Germination,9.78,21.0,11,976.1,20,15,18,0
-2025-12-02 19:24:27,Black Soil,Germination,9.78,21.0,11,974.7,20,15,18,0
-2025-12-02 19:24:38,Black Soil,Germination,9.78,21.0,11,974.44,20,15,18,0
+timestamp,soil_type,Seedling Stage,MOI,temp,humidity,result
+2025-12-02 19:56:05,Black Soil,,100.0,21.0,11,
+2025-12-02 19:56:16,Black Soil,,100.0,21.0,11,
+2025-12-02 19:56:26,Black Soil,,100.0,21.0,11,
+2025-12-02 19:56:37,Black Soil,,100.0,21.0,11,
+2025-12-02 19:56:47,Black Soil,,100.0,21.0,11,
+2025-12-02 19:56:58,Black Soil,,100.0,21.0,11,
+2025-12-02 19:57:08,Black Soil,,100.0,21.0,11,
+2025-12-02 19:57:19,Black Soil,,100.0,21.0,11,
+2025-12-02 19:57:29,Black Soil,,100.0,21.0,11,
+2025-12-02 19:57:39,Black Soil,,100.0,21.0,11,
