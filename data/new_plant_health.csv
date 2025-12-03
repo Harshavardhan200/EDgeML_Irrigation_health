@@ -1,51 +1,11 @@
-Unnamed: 0
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
-""
+timestamp,soil_type,stage,moisture,temp,humidity,light,nitrogen,phosphorus,potassium,plant_pred
+2025-12-02 19:21:16,Black Soil,Germination,9.78,21.0,11,983.15,20,15,18,High Stress
+2025-12-02 19:21:27,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,High Stress
+2025-12-02 19:21:37,Black Soil,Germination,9.78,21.0,11,982.64,20,15,18,High Stress
+2025-12-02 19:21:48,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,High Stress
+2025-12-02 19:21:58,Black Soil,Germination,9.78,21.0,11,983.41,20,15,18,High Stress
+2025-12-02 19:22:09,Black Soil,Germination,9.78,21.0,11,983.54,20,15,18,High Stress
+2025-12-02 19:22:19,Black Soil,Germination,9.78,21.0,11,983.67,20,15,18,High Stress
+2025-12-02 19:22:30,Black Soil,Germination,9.78,21.0,11,985.34,20,15,18,High Stress
+2025-12-02 19:22:40,Black Soil,Germination,9.78,21.0,11,983.92,20,15,18,High Stress
+2025-12-02 19:22:50,Black Soil,Germination,9.78,21.0,11,983.28,20,15,18,High Stress
